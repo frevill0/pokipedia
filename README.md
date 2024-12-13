@@ -24,6 +24,9 @@ Bienvenido a **Pokemon & IP Info App**, una aplicación Flutter que combina dos 
 
 ---
 
+## 📁 El APK se puede encontrar en la ruta Raiz en la Carpeta APK:
+![{5A3B67AD-791E-4D1E-B546-BB274A17608A}](https://github.com/user-attachments/assets/a20f7f52-a261-4e07-9d34-fc74cc1f3d44)
+
 ## 🔧 Tecnologías utilizadas:
 
 - **Framework:** Flutter 🥙💃
