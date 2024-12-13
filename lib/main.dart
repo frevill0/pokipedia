@@ -96,7 +96,7 @@ class _PokemonListState extends State<PokemonList> {
 
   Future<void> _fetchIpInfo() async {
     final ip = _ipSearchController.text;
-    final apiKey = '5bfa51c315854c6f8e968cc048c7fb6b';
+    final apiKey = '5bfa51c315854c6f8e968cc048c7fb6b'; // Reemplaza con tu API Key de ipstack
     final url = Uri.parse('http://api.ipstack.com/$ip?access_key=$apiKey');
 
     setState(() {
