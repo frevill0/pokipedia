@@ -1,14 +1,54 @@
-# Laboratorio 
-# Consumo de API's con flutter
+# 🌟 Pokemon & IP Info App 🌐
 
-El presente repo contiene una aplicación que consume el API de https://pokeapi.co/, con el endpoint [https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0](https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0)
+Bienvenido a **Pokemon & IP Info App**, una aplicación Flutter que combina dos mundos fascinantes: 🎉 la información detallada de los Pokémon 🐉 y los datos de localización basados en IPs 🔍. Todo esto, con un diseño limpio y fácil de usar.
 
-Actividad 1:
-La actividad por realizar es generar una aplicación que me permita buscar y mostrar Pokémons pero con todas sus características, incluida su foto, para lo cual puede consumir el endpoint: https://pokeapi.co/api/v2/pokemon/ditto , en este caso "ditto" es el nombre del Pokémon a mostrar.
+---
 
-Actividad 2:
-Implementar una aplicación que utilice cualquiera de los API's mostrados en: https://github.com/public-apis/public-apis
+## 🔎 Características principales:
+
+- **Lista de Pokémon:**
+  - Obtén una lista de los primeros 50 Pokémon con su imagen, altura, peso y habilidades.
+  - Filtra Pokémon por nombre en tiempo real.
+  - Detalles completos al seleccionar cualquier Pokémon.
+
+- **Búsqueda de IPs:**
+  - Ingresa cualquier dirección IP y descubre:
+    - País y región.
+    - Ciudad y código postal.
+    - Tipo de IP (IPv4/IPv6).
+    - Continente y más.
+
+- **Interfaz intuitiva:**
+  - Diseño moderno y responsivo.
+  - Indicadores de carga para mantener al usuario informado.
+
+---
+
+## 🔧 Tecnologías utilizadas:
+
+- **Framework:** Flutter 🥙💃
+- **API de Pokémon:** [PokéAPI](https://pokeapi.co/)
+- **API de geolocalización por IP:** [ipstack](https://ipstack.com/)
+- **Lenguaje:** Dart 🖋️
+
+---
+
+## 🎨 Capturas de Pantalla:
+
+![image](https://github.com/user-attachments/assets/e873cd2e-d071-483f-9d87-83ec11be1769)
+![image](https://github.com/user-attachments/assets/4e92dcb2-9a32-44c4-b3e4-f80f75a70924)
 
 
-Entregable: en el aula virtual deberá subir su repositorio de github donde debe detallar el proceso en el readme y adjuntar capturas de la app en ejecución. Pueden trabajar hasta 3 personas. Todos deben subir su repositorio.
 
+---
+
+## 📚 Licencia:
+
+Puedes usar, modificar y distribuir este software libremente
+
+---
+
+## 📢 Créditos:
+
+- **Autor:** Freddy Antonio Villavicencio Rosendo 🔧, Alexis Paul Farinango Pulamarin 🔧, Steven Jahir Castillo Suqui 🔧
+- **Inspiración:** Flutter, la PokéAPI y la pasión por aprender nuevas tecnologías.
