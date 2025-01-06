@@ -72,3 +72,6 @@ Puedes usar, modificar y distribuir este software libremente
 4. **Configuración de precios y distribución**.
 5. **Subida del APK** y envío para revisión.
 6. Una vez aprobada, ¡la aplicación quedó disponible para descarga! 🎉
+
+![image](https://github.com/user-attachments/assets/fa2f5b43-3cbe-4631-9678-5220c05f4d93)
+
