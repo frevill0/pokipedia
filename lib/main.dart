@@ -11,7 +11,27 @@ class PokemonApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pokémon API',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: Colors.grey[100],
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple,
+        ),
+        cardTheme: CardTheme(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple,
+            foregroundColor: Colors.white,
+          ),
+        ),
+      ),
       home: PokemonList(),
     );
   }
@@ -145,78 +165,153 @@ Código postal: ${data['zip']}
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Pokémon'),
+        title: Text(
+          'Pokédex',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
       ),
-      body: Column(
-        children: [
-          // Barra de búsqueda para IP
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _ipSearchController,
-                    decoration: InputDecoration(
-                      hintText: 'Ingresa la IP...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.deepPurple[100]!, Colors.white],
+          ),
+        ),
+        child: Column(
+          children: [
+            // Barra de búsqueda para IP
+            Card(
+              margin: EdgeInsets.all(16),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _ipSearchController,
+                            decoration: InputDecoration(
+                              hintText: 'Ingresa la IP...',
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              filled: true,
+                              fillColor: Colors.grey[50],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: _fetchIpInfo,
+                          child: Text('Buscar'),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 15),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                    if (_ipInfo.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            _ipInfo,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: _fetchIpInfo,
-                ),
-              ],
+              ),
             ),
-          ),
-          // Mostrar la información de la IP
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              _ipInfo,
-              style: TextStyle(fontSize: 14),
-            ),
-          ),
-          // Barra de búsqueda para Pokémon
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.infinity,
+
+            // Barra de búsqueda para Pokémon
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Buscar Pokémon...',
+                  prefixIcon: Icon(Icons.catching_pokemon),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(25),
                   ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
             ),
-          ),
-          // Mostrar la lista de Pokémon o indicador de carga
-          _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : Expanded(
-                  child: ListView.builder(
-                    itemCount: _filteredPokemonList.length,
-                    itemBuilder: (context, index) {
-                      final pokemon = _filteredPokemonList[index];
-                      return ListTile(
-                        leading: pokemon['image'] != null
-                            ? Image.network(pokemon['image'])
-                            : Icon(Icons.image_not_supported),
-                        title: Text(pokemon['name']),
-                        onTap: () {
-                          _showPokemonDetails(context, pokemon);
-                        },
-                      );
-                    },
-                  ),
-                ),
-        ],
+
+            // Lista de Pokémon
+            Expanded(
+              child: _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : GridView.builder(
+                      padding: EdgeInsets.all(16),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.85,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemCount: _filteredPokemonList.length,
+                      itemBuilder: (context, index) {
+                        final pokemon = _filteredPokemonList[index];
+                        return Card(
+                          child: InkWell(
+                            onTap: () => _showPokemonDetails(context, pokemon),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Hero(
+                                  tag: 'pokemon-${pokemon['id']}',
+                                  child: pokemon['image'] != null
+                                      ? Image.network(
+                                          pokemon['image'],
+                                          height: 100,
+                                        )
+                                      : Icon(Icons.image_not_supported, size: 100),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  pokemon['name'].toUpperCase(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  '#${pokemon['id'].toString().padLeft(3, '0')}',
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -225,32 +320,92 @@ Código postal: ${data['zip']}
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(pokemon['name']),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              pokemon['image'] != null
-                  ? Image.network(pokemon['image'])
-                  : Icon(Icons.image_not_supported, size: 50),
-              SizedBox(height: 16),
-              Text('ID: ${pokemon['id']}'),
-              Text('Altura: ${pokemon['height']}'),
-              Text('Peso: ${pokemon['weight']}'),
-              Text('Habilidades: ${pokemon['abilities'].join(', ')}'),
-            ],
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Hero(
+                  tag: 'pokemon-${pokemon['id']}',
+                  child: pokemon['image'] != null
+                      ? Image.network(pokemon['image'], height: 150)
+                      : Icon(Icons.image_not_supported, size: 150),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  pokemon['name'].toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '#${pokemon['id'].toString().padLeft(3, '0')}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildStatColumn('Altura', '${pokemon['height']} dm'),
+                    _buildStatColumn('Peso', '${pokemon['weight']} hg'),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Habilidades',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Wrap(
+                  spacing: 8,
+                  children: (pokemon['abilities'] as List)
+                      .map((ability) => Chip(
+                            label: Text(ability),
+                            backgroundColor: Colors.deepPurple[100],
+                          ))
+                      .toList(),
+                ),
+                SizedBox(height: 16),
+                TextButton(
+                  child: Text('Cerrar'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
             ),
-          ],
+          ),
         );
       },
+    );
+  }
+
+  Widget _buildStatColumn(String label, String value) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[600],
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
