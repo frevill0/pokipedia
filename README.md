@@ -55,3 +55,20 @@ Puedes usar, modificar y distribuir este software libremente
 
 - **Autor:** Freddy Antonio Villavicencio Rosendo 🔧, Alexis Paul Farinango Pulamarin 🔧, Steven Jahir Castillo Suqui 🔧
 - **Inspiración:** Flutter, la PokéAPI y la pasión por aprender nuevas tecnologías.
+
+- ## 🚀 Publicación en la Amazon Store
+
+**Freddy Antonio Villavicencio Rosendo** realizo cambios en la app y la subió la aplicación a la Amazon Store, permitiendo a los usuarios descargarla fácilmente desde esta plataforma.
+
+### 🔗 Enlace de acceso:  
+[Descargar en Amazon Store](https://www.amazon.com/gp/mas/get/android/ref=mas_buy_client?asin=B0DS82XZG4)
+
+### 📋 Proceso de publicación:
+1. **Creación de cuenta de desarrollador** en la Amazon Appstore.
+2. **Generación del archivo APK** desde Flutter con una firma válida.
+3. **Relleno de la ficha de la aplicación**, incluyendo:
+   - Nombre, descripción y características.
+   - Capturas de pantalla y gráficos promocionales.
+4. **Configuración de precios y distribución**.
+5. **Subida del APK** y envío para revisión.
+6. Una vez aprobada, ¡la aplicación quedó disponible para descarga! 🎉
